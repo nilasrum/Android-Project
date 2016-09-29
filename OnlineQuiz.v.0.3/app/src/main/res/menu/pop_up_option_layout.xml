@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/viewres"
+        android:title="View Result" />
+    <item
+        android:id="@+id/popdelete"
+        android:title="Delete Exam" />
+</menu>

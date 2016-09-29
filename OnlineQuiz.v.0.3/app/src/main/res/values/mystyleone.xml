@@ -1,0 +1,84 @@
+<resources>
+
+<!--
+    <style name="MyTheme" parent="Theme.AppCompat">
+        <item name="colorPrimary">@color/primary_dark</item>
+        <item name="colorPrimaryDark">@color/primary_darker</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlActivated">@color/test</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:textColorHint">@color/accent</item>
+        <item name="colorButtonNormal">@color/primary_darker</item>
+        <item name="android:colorButtonNormal">@color/primary_darker</item>
+        <item name="android:divider">@color/black</item>
+    </style>
+
+
+    <style name="MyTheme.dialog" parent="Theme.AppCompat.Dialog">
+        <item name="colorAccent">@color/orange</item>
+        <item name="android:textColorPrimary">@color/jet</item>
+        <item name="android:background">@color/primary_dark</item>
+        <item name="android:textColor">@color/orange</item>
+    </style>
+    -->
+    <!--
+    <style name="MyActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="android:background">#006699</item>
+    </style>
+
+    <style name="MyTheme.Dark">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/jet</item>
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
+
+
+        <item name="android:windowBackground">@color/primary</item>
+
+        <item name="colorControlNormal">@color/iron</item>
+        <item name="colorControlActivated">@color/orange</item>
+        <item name="colorControlHighlight">@color/orange</item>
+        <item name="android:textColorHint">@color/accent</item>
+
+        <item name="colorButtonNormal">@color/primary_darker</item>
+        <item name="android:colorButtonNormal">@color/primary_darker</item>
+    </style>
+-->
+
+    <!--
+    <color name="primary">#E43F3F</color>
+    <color name="primary_dark">#E12929</color>
+    <color name="primary_darker">#CC1D1D</color>
+    <color name="accent">#FFFFFF</color>
+    -->
+    <!--
+    <color name="primary_dark">#8BC34A</color>
+    <color name="primary_darker">#689F38</color>
+    <color name="primary">#FFFFFF</color>
+    <color name="accent">#4caf50</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#B6B6B6</color>
+
+
+    <color name="black">#000000</color>
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#aaaaaa</color>
+    <color name="iron">#CCCCCC</color>
+    <color name="orange">#FF9800</color>
+    <color name="white">#FFFFFF</color>
+    <color name="test">#004C00</color>
+
+-->
+</resources>
+
+
