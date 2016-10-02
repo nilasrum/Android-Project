@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Home"
+        android:id="@+id/navigation_home_admin"
+        android:icon="@drawable/home_icon"/>
+    <item android:title="log out"
+        android:id="@+id/navigation_logout_admin"
+        android:icon="@drawable/logout_icon"/>
+</menu>

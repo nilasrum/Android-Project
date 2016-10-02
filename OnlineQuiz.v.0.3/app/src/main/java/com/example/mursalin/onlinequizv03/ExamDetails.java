@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.File;
 import java.util.Calendar;
 
 public class ExamDetails extends AppCompatActivity {
@@ -46,6 +47,20 @@ public class ExamDetails extends AppCompatActivity {
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
         //showDate(year, month+1, day);
+        browse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BrowseQues();
+            }
+        });
+    }
+
+
+    public void BrowseQues(){
+        new FileChooser(ExamDetails.this).setFileListener(new FileChooser.FileSelectedListener() {
+            @Override public void fileSelected(final File file) {
+                // do something with the file
+            }}).showDialog();
     }
 
     void SetUpExamButtonClicked(){

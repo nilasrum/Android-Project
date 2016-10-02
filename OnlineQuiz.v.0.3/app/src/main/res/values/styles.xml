@@ -3,20 +3,7 @@
     <!-- Base application theme. -->
 
     <style name="MyTheme" parent="Theme.AppCompat">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/black_01</item>
-        <item name="colorPrimaryDark">@color/black_00</item>
-        <item name="colorAccent">@color/red</item>
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="android:windowBackground">@color/black_02</item>
-        <item name="colorControlNormal">@color/iron</item>
-        <item name="colorControlActivated">@color/red</item>
-        <item name="colorControlHighlight">@color/white</item>
-        <item name="android:textColorHint">@color/base</item>
-        <item name="colorButtonNormal">@color/black_03</item>
-        <item name="android:colorButtonNormal">@color/black_03</item>
-        <item name="android:divider">@color/white</item>
-        <item name="android:navigationBarColor">@color/black</item>
+
     </style>
 
 
@@ -25,6 +12,12 @@
         <item name="android:textColorPrimary">@color/jet</item>
         <item name="android:background">@color/red</item>
         <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:background">@color/red</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:textAlignment">center</item>
     </style>
     <!--
     <style name="MyActionBar" parent="Theme.AppCompat.DayNight.DarkActionBar">

@@ -3,22 +3,27 @@ package com.example.mursalin.onlinequizv03;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
 public class AdminHomeActivity extends AppCompatActivity {
 
-
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mActionBarDrawerToggle;
+    private NavigationView navigationView;
     Button setexambutton,searchexambutton;
     TextView searchdate;
-
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
@@ -48,7 +53,45 @@ public class AdminHomeActivity extends AppCompatActivity {
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        //showDate(year, month+1, day);
+
+        //app drawer
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.admin_home_drawer_layout_id);
+        mActionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+
+        mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
+        mActionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        navigationView = (NavigationView)findViewById(R.id.admin_home_navigationView_id);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                //if(item.isChecked())item.setChecked(false);
+                //else item.setChecked(true);
+                mDrawerLayout.closeDrawers();
+                switch (item.getItemId()){
+                    case R.id.navigation_home_admin :
+                        Toast.makeText(getApplicationContext(),"home",Toast.LENGTH_SHORT).show();
+                        return true;
+                    case R.id.navigation_logout_admin :
+                        Toast.makeText(getApplicationContext(),"LogOut",Toast.LENGTH_SHORT).show();
+                        return true;
+                    default: return true;
+                }
+
+            }
+        });
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //Log.i("talat", String.valueOf(item.getItemId()));
+        if(mActionBarDrawerToggle.onOptionsItemSelected(item)){
+            //Toast.makeText(this,item.getItemId(),Toast.LENGTH_LONG).show();
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /*@Override

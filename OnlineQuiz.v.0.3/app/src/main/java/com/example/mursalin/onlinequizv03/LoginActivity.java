@@ -2,21 +2,12 @@ package com.example.mursalin.onlinequizv03;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import java.lang.reflect.Field;
-import java.util.Timer;
-import java.util.TimerTask;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -25,7 +16,8 @@ public class LoginActivity extends AppCompatActivity {
     public TextView link;
     public ProgressDialog progressDialog;
     private String email, password;
-    public static String serverip = "http://10.0.2.2/android";
+    //public static String serverip = "http://10.0.2.2/android";
+    public static String serverip = "http://192.168.43.25/android";
 
 
     @Override

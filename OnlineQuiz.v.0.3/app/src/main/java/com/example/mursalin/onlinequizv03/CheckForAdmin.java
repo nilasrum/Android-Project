@@ -39,7 +39,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
         email = params[0];
         pass = params[1];
 
-       // Log.i("talat","is it sunday?");
+        Log.i("talat","is it sunday?");
 
         try {
             URL url = new URL(login_url);
@@ -56,7 +56,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
             bw.close();
             os.close();
 
-           // Log.i("talat","is it monday?");
+            Log.i("talat","is it monday?");
 
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -69,7 +69,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
-            //Log.i("talat","thn is it ok  "+response);
+            Log.i("talat","thn is it ok  "+response);
             return response;
 
         } catch (IOException e) {
@@ -85,6 +85,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
 
         if(res.equals("admin")){
 
+            Log.i("talat",res);
             Intent adminhome = new Intent(ctx,AdminHomeActivity.class);
             adminhome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ctx.startActivity(adminhome);

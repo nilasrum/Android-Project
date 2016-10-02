@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -124,6 +123,8 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
         } else {
 
             if (res.equals("log in failed...try again")) {
+                loginActivity.progressDialog.dismiss();
+                alertDialog = new AlertDialog.Builder(loginActivity,R.style.AlertDialogCustom).create();
                 alertDialog.setMessage(res);
                 alertDialog.show();
             } else {
@@ -139,11 +140,6 @@ public class BackgroundTask extends AsyncTask<String, Void, String> {
 
             }
         }
-    }
-
-    @Override
-    protected void onPreExecute() {
-        alertDialog = new AlertDialog.Builder(ctx).create();
     }
 
     @Override
