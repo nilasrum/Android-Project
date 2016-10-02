@@ -69,7 +69,7 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
         activity.progressDialog.dismiss();
         Toast.makeText(contex,"Exam Setup Completed",Toast.LENGTH_LONG).show();
         JasonExamListParser jasonExamListParser = new JasonExamListParser(contex);
-        jasonExamListParser.execute(examdate,"admin");
+        jasonExamListParser.execute(examdate,"Admin");
 
     }
 

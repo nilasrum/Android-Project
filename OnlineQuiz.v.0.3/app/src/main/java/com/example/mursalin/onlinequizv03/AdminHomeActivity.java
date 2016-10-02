@@ -60,13 +60,15 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        try{
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }catch(Exception e){
+
+        }
         navigationView = (NavigationView)findViewById(R.id.admin_home_navigationView_id);
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
-                //if(item.isChecked())item.setChecked(false);
-                //else item.setChecked(true);
                 mDrawerLayout.closeDrawers();
                 switch (item.getItemId()){
                     case R.id.navigation_home_admin :
@@ -74,6 +76,8 @@ public class AdminHomeActivity extends AppCompatActivity {
                         return true;
                     case R.id.navigation_logout_admin :
                         Toast.makeText(getApplicationContext(),"LogOut",Toast.LENGTH_SHORT).show();
+                        Intent loginpage = new Intent(AdminHomeActivity.this,LoginActivity.class);
+                        startActivity(loginpage);
                         return true;
                     default: return true;
                 }
@@ -86,18 +90,16 @@ public class AdminHomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        //Log.i("talat", String.valueOf(item.getItemId()));
         if(mActionBarDrawerToggle.onOptionsItemSelected(item)){
-            //Toast.makeText(this,item.getItemId(),Toast.LENGTH_LONG).show();
             return  true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    /*@Override
+    @Override
     public void onBackPressed() {
-        //
-    }*/
+
+    }
 
     void SetExamButtonClicked(){
         Intent exampage = new Intent(AdminHomeActivity.this,ExamDetails.class);

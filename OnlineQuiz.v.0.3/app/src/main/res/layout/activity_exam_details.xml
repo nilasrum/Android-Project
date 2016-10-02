@@ -1,126 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fitsSystemWindows="true">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="10dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp">
 
-        <TextView
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginTop="5dp"
-            android:textColor="@color/my_text_color"
-            android:text="@string/exam_details"
-            android:textSize="28sp"
-            android:layout_marginBottom="10dp"
-            android:inputType="none" />
-
-        <android.support.design.widget.TextInputLayout
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:id="@+id/exdetails_d_l_id"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fitsSystemWindows="true">
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp">
-            <EditText
+            android:orientation="vertical"
+            android:paddingTop="10dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp">
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_marginTop="5dp"
+                android:textColor="@color/my_text_color"
+                android:text="@string/exam_details"
+                android:textSize="28sp"
+                android:layout_marginBottom="10dp"
+                android:inputType="none" />
+
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="@string/exam_name"
-                android:textColorHint="#95A5A6"
-                android:textColor="@color/my_text_color"
-                android:id="@+id/examname" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:hint="@string/exam_name"
+                    android:textColorHint="#95A5A6"
+                    android:textColor="@color/my_text_color"
+                    android:id="@+id/examname" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/exam_date"
-                android:textColorHint="#95A5A6"
-                android:textColor="@color/my_text_color"
-                android:id="@+id/examdate"
-                android:inputType="text"
-                android:onClick="setDate" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/exam_date"
+                    android:textColorHint="#95A5A6"
+                    android:textColor="@color/my_text_color"
+                    android:id="@+id/examdate"
+                    android:inputType="text"
+                    android:onClick="setDate" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="8dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColorHint="#95A5A6"
-                android:textColor="@color/my_text_color"
-                android:id="@+id/exampass"
-                android:hint="@string/exam_password" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="8dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    android:textColorHint="#95A5A6"
+                    android:textColor="@color/my_text_color"
+                    android:id="@+id/exampass"
+                    android:hint="@string/exam_password" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/start_time_i_e_8_30_am"
-                android:textColorHint="#95A5A6"
-                android:textColor="@color/my_text_color"
-                android:id="@+id/starttime"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/start_time_i_e_8_30_am"
+                    android:textColorHint="#95A5A6"
+                    android:textColor="@color/my_text_color"
+                    android:id="@+id/starttime"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/end_time_i_e_9_00_am"
-                android:textColorHint="#95A5A6"
-                android:textColor="@color/my_text_color"
-                android:id="@+id/duration"
-                android:inputType="number|text" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/end_time_i_e_9_00_am"
+                    android:textColorHint="#95A5A6"
+                    android:textColor="@color/my_text_color"
+                    android:id="@+id/duration"
+                    android:inputType="number|text" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText
+            <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/browse_to_question"
-                android:textColorHint="#95A5A6"
-                android:textColor="@color/my_text_color"
-                android:id="@+id/browse"
-                android:inputType="text" />
-        </android.support.design.widget.TextInputLayout>
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/browse_to_question"
+                    android:textColorHint="#95A5A6"
+                    android:textColor="@color/my_text_color"
+                    android:id="@+id/browse"
+                    android:inputType="text" />
+            </android.support.design.widget.TextInputLayout>
 
-        <android.support.v7.widget.AppCompatButton
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="@string/set_exam"
-            android:id="@+id/setexambutton" />
+            <android.support.v7.widget.AppCompatButton
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:padding="12dp"
+                android:text="@string/set_exam"
+                android:id="@+id/setexambutton" />
 
-    </LinearLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+    <android.support.design.widget.NavigationView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/admin_home_navigationView_id"
+        app:menu="@menu/admin_home_navigation_menu"
+        android:layout_gravity = "start"
+        app:headerLayout="@layout/admin_home_navigation_header">
+
+    </android.support.design.widget.NavigationView>
+</android.support.v4.widget.DrawerLayout>

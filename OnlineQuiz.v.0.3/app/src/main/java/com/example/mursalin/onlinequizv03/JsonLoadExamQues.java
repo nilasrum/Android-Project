@@ -82,9 +82,10 @@ public class JsonLoadExamQues extends AsyncTask<String, Void, String> {
         DatabaseToArray databaseToArray = new DatabaseToArray(result);
         databaseToArray.Extraction();
 
-        if (databaseToArray.count < cur) {
+        if (databaseToArray.count <= cur) {
             Toast.makeText(context, "All Question Answered", Toast.LENGTH_LONG).show();
             Intent homepage = new Intent(context, UserHomeActivity.class);
+            homepage.putExtra("userid",id);
             homepage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(homepage);
         } else {

@@ -38,7 +38,7 @@ public class JasonResultParser extends AsyncTask<String, Void, String> {
 
         String exam_url = LoginActivity.serverip + "/result_list.php";
         String examtable = params[0];
-        Log.i("talat","coming to res parcing");
+        id = params[1];
 
         try {
             URL url = new URL(exam_url);
@@ -77,11 +77,10 @@ public class JasonResultParser extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String result) {
 
-        Log.i("talat","it is ok if it COMES HERE");
-        //activity.jasonmsg.append(result);
         Intent reslistpage = new Intent(context,DisplayResListActivity.class);
         reslistpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         reslistpage.putExtra("jason",result);
+        reslistpage.putExtra("id",id);
         context.startActivity(reslistpage);
 
     }

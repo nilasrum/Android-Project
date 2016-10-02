@@ -3,17 +3,28 @@ package com.example.mursalin.onlinequizv03;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.File;
 import java.util.Calendar;
 
 public class ExamDetails extends AppCompatActivity {
+
+
+    private DrawerLayout exdrawerLayout;
+    private ActionBarDrawerToggle exactionBarDrawerToggle;
+    private NavigationView exnavigationView;
 
     EditText examname,examdate,starttime,duration,browse,exampass;
     Button setexambutton;
@@ -53,8 +64,45 @@ public class ExamDetails extends AppCompatActivity {
                 BrowseQues();
             }
         });
+
+        //app drawer
+        exdrawerLayout = (DrawerLayout)findViewById(R.id.exdetails_d_l_id);
+        exactionBarDrawerToggle = new ActionBarDrawerToggle(this,exdrawerLayout,R.string.open,R.string.close);
+
+        exdrawerLayout.addDrawerListener(exactionBarDrawerToggle);
+        exactionBarDrawerToggle.syncState();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        exnavigationView = (NavigationView)findViewById(R.id.admin_home_navigationView_id);
+        exnavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener(){
+            @Override
+            public boolean onNavigationItemSelected(MenuItem item) {
+                exdrawerLayout.closeDrawers();
+                switch (item.getItemId()){
+                    case R.id.navigation_home_admin :
+                        Toast.makeText(getApplicationContext(),"home",Toast.LENGTH_SHORT).show();
+                        Intent home = new Intent(ExamDetails.this,AdminHomeActivity.class);
+                        startActivity(home);
+                        return true;
+                    case R.id.navigation_logout_admin :
+                        Toast.makeText(getApplicationContext(),"LogOut",Toast.LENGTH_SHORT).show();
+                        Intent loginpage = new Intent(ExamDetails.this,LoginActivity.class);
+                        startActivity(loginpage);
+                        return true;
+                    default: return true;
+                }
+
+            }
+        });
+
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(exactionBarDrawerToggle.onOptionsItemSelected(item)){
+            return  true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     public void BrowseQues(){
         new FileChooser(ExamDetails.this).setFileListener(new FileChooser.FileSelectedListener() {

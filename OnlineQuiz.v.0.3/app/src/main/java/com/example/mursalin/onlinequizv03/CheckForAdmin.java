@@ -72,7 +72,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
             Log.i("talat","thn is it ok  "+response);
             return response;
 
-        } catch (IOException e) {
+        } catch (Exception e) {
 
             e.printStackTrace();
         }
