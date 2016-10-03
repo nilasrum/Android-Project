@@ -3,17 +3,21 @@ package com.example.mursalin.onlinequizv03;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.io.File;
@@ -25,6 +29,10 @@ public class ExamDetails extends AppCompatActivity {
     private DrawerLayout exdrawerLayout;
     private ActionBarDrawerToggle exactionBarDrawerToggle;
     private NavigationView exnavigationView;
+
+    private int hour;
+    private int minute;
+    static final int TIME_DIALOG_ID = 998;
 
     EditText examname,examdate,starttime,duration,browse,exampass;
     Button setexambutton;
@@ -133,7 +141,6 @@ public class ExamDetails extends AppCompatActivity {
         //create result table
         CreateTableTask createTableTask = new CreateTableTask();
         createTableTask.execute(ename);
-
     }
 
     @SuppressWarnings("deprecation")
@@ -141,11 +148,22 @@ public class ExamDetails extends AppCompatActivity {
         showDialog(999);
     }
 
+    @SuppressWarnings("deprecation")
+    public void setTime(View view) {
+        showDialog(998);
+    }
+
     @Override
     protected Dialog onCreateDialog(int id) {
         // TODO Auto-generated method stub
+        Log.i("talat","at least here");
         if (id == 999) {
             return new DatePickerDialog(this, myDateListener, year, month, day);
+        }
+        if(id==998){
+            Log.i("talat","hi baby");
+            return new TimePickerDialog(this,
+                    timePickerListener, hour, minute,false);
         }
         return null;
     }
@@ -164,6 +182,25 @@ public class ExamDetails extends AppCompatActivity {
     private void showDate(int year, int month, int day) {
         examdate.setText(new StringBuilder().append(day).append("/")
                 .append(month).append("/").append(year));
+    }
+
+    private TimePickerDialog.OnTimeSetListener timePickerListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int selectedHour,
+                                      int selectedMinute) {
+                    hour = selectedHour;
+                    minute = selectedMinute;
+
+                    //set current time into text
+                    starttime.setText(new StringBuilder().append(pad(hour)).append(":").append(pad(minute)).toString());
+
+                }
+            };
+    private static String pad(int c) {
+        if (c >= 10)
+            return String.valueOf(c);
+        else
+            return "0" + String.valueOf(c);
     }
 
 }

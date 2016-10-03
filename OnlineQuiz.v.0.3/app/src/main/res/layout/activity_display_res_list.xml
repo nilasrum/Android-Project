@@ -33,7 +33,7 @@
 
             <ListView
                 android:layout_width="match_parent"
-                android:layout_height="450dp"
+                android:layout_height="600dp"
                 android:id="@+id/listview"
                 android:paddingTop="15dp"
                 android:divider="#0099FF"

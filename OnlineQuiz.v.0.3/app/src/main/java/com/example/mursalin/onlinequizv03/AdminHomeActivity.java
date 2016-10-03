@@ -1,17 +1,22 @@
 package com.example.mursalin.onlinequizv03;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +36,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_admin_home);
         searchdate = (TextView) findViewById(R.id.searchdate);
         setexambutton = (Button) findViewById(R.id.setexambutton);
@@ -48,6 +54,12 @@ public class AdminHomeActivity extends AppCompatActivity {
             }
         });
 
+        NavigationView navigationView = (NavigationView) findViewById(R.id.admin_home_navigationView_id);
+        View header = navigationView.getHeaderView(0);
+        TextView text = (TextView) header.findViewById(R.id.nav_head_admin);
+        text.setText("Admin");
+
+
         //datepicker
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -57,6 +69,7 @@ public class AdminHomeActivity extends AppCompatActivity {
         //app drawer
         mDrawerLayout = (DrawerLayout)findViewById(R.id.admin_home_drawer_layout_id);
         mActionBarDrawerToggle = new ActionBarDrawerToggle(this,mDrawerLayout,R.string.open,R.string.close);
+
 
         mDrawerLayout.addDrawerListener(mActionBarDrawerToggle);
         mActionBarDrawerToggle.syncState();
@@ -86,7 +99,6 @@ public class AdminHomeActivity extends AppCompatActivity {
         });
 
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

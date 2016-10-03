@@ -76,8 +76,12 @@ public class DisplayResListActivity extends AppCompatActivity  {
                 switch (item.getItemId()){
                     case R.id.navigation_home_admin :
                         if(id.equals("Admin")){
-                            Intent loginpage = new Intent(DisplayResListActivity.this,AdminHomeActivity.class);
-                            startActivity(loginpage);
+                            Intent homeAd = new Intent(DisplayResListActivity.this,AdminHomeActivity.class);
+                            startActivity(homeAd);
+                        }else {
+                            Intent homeUs = new Intent(DisplayResListActivity.this,UserHomeActivity.class);
+                            homeUs.putExtra("userid",id);
+                            startActivity(homeUs);
                         }
                         return true;
                     case R.id.navigation_logout_admin :

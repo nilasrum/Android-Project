@@ -24,6 +24,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
     Context ctx;
     String email, pass;
     LoginActivity loginActivity;
+    int flag=0;
 
     CheckForAdmin(Context ctx, LoginActivity activity) {
         this.ctx = ctx;
@@ -73,7 +74,7 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
             return response;
 
         } catch (Exception e) {
-
+            flag =1;
             e.printStackTrace();
         }
 
@@ -83,13 +84,14 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String res) {
 
+        if(flag==1)return;
         if(res.equals("admin")){
 
             Log.i("talat",res);
             Intent adminhome = new Intent(ctx,AdminHomeActivity.class);
             adminhome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             ctx.startActivity(adminhome);
-        }else {
+        }else if(res.equals("user")) {
             BackgroundTask backgroundTask;
             backgroundTask = new BackgroundTask(ctx,loginActivity);
             backgroundTask.execute("login", email, pass);
