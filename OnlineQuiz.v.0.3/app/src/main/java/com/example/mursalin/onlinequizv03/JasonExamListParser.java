@@ -36,8 +36,10 @@ public class JasonExamListParser extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
-        String exam_url = LoginActivity.serverip + "/exam_list.php";
+        String exam_url;
         String examname = params[0];
+        if(examname.isEmpty())exam_url = LoginActivity.serverip + "/all_exam_list.php";
+        else exam_url = LoginActivity.serverip + "/exam_list.php";
         id = params[1];
 
         try {

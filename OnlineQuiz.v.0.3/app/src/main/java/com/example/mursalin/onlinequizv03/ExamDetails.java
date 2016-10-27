@@ -7,6 +7,7 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -36,12 +37,13 @@ public class ExamDetails extends AppCompatActivity {
 
     EditText examname,examdate,starttime,duration,browse,exampass;
     Button setexambutton;
-    String ename,edate,estarttime,eduration,ebrowse,epass;
+    String ename,edate,estarttime,eduration,ebrowse,epass,qpath;
     ProgressDialog progressDialog;
 
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
+    private File quesfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,9 +115,15 @@ public class ExamDetails extends AppCompatActivity {
     }
 
     public void BrowseQues(){
+        String state = Environment.getExternalStorageState();
+        if (!(state.equals(Environment.MEDIA_MOUNTED))) {
+            Toast.makeText(this, "There is no sd card", Toast.LENGTH_LONG).show();
+        }
         new FileChooser(ExamDetails.this).setFileListener(new FileChooser.FileSelectedListener() {
             @Override public void fileSelected(final File file) {
                 // do something with the file
+                browse.setText(file.getAbsolutePath());
+                quesfile = file;
             }}).showDialog();
     }
 
@@ -125,6 +133,16 @@ public class ExamDetails extends AppCompatActivity {
         estarttime = starttime.getText().toString();
         eduration = duration.getText().toString();
         epass = exampass.getText().toString();
+        qpath = browse.getText().toString();
+        if(ename.isEmpty() || edate.isEmpty() || estarttime.isEmpty() || eduration.isEmpty() || epass.isEmpty() || qpath.isEmpty()){
+            Log.i("talat","exam details empty");
+            Toast.makeText(getApplicationContext(),"please fill up all feild",Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if(ename.contains(" ")){
+            Toast.makeText(getApplicationContext(),"space not allowed in exam name",Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         progressDialog = new ProgressDialog(ExamDetails.this, R.style.MyTheme_dialog);
         progressDialog.setIndeterminate(true);
@@ -132,15 +150,8 @@ public class ExamDetails extends AppCompatActivity {
         progressDialog.show();
 
         SetUpExamBackgroundTask setUpExamBackgroundTask = new SetUpExamBackgroundTask(this,ExamDetails.this);
-        setUpExamBackgroundTask.execute(ename,edate,estarttime,eduration,epass);
+        setUpExamBackgroundTask.execute(ename,edate,estarttime,eduration,epass,qpath);
 
-        //upload file
-
-        //progressDialog.dismiss();
-
-        //create result table
-        CreateTableTask createTableTask = new CreateTableTask();
-        createTableTask.execute(ename);
     }
 
     @SuppressWarnings("deprecation")
@@ -197,10 +208,10 @@ public class ExamDetails extends AppCompatActivity {
                 }
             };
     private static String pad(int c) {
-        if (c >= 10)
+        //if (c >= 10)
             return String.valueOf(c);
-        else
-            return "0" + String.valueOf(c);
+       // else
+           // return "0" + String.valueOf(c);
     }
 
 }

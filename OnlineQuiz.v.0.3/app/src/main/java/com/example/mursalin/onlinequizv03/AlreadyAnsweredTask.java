@@ -77,6 +77,7 @@ public class AlreadyAnsweredTask extends AsyncTask<String, Void, String> {
             if (res.charAt(i) == '0') break;
         }
         Toast.makeText(context, "Password Accepted", Toast.LENGTH_SHORT).show();
+        Log.i("talat","cur here : "+i);
         JsonLoadExamQues jsonLoadExamQues = new JsonLoadExamQues(context, activity, i, res);
         jsonLoadExamQues.execute(userid,tablename);
     }

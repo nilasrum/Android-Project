@@ -140,6 +140,19 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
     }
 
     @Override
+    public void onBackPressed() {
+        if(regid.equals("Admin")){
+            Intent homepage = new Intent(DisplayExamListActivity.this,AdminHomeActivity.class);
+
+            startActivity(homepage);
+        }else{
+            Intent homepage = new Intent(DisplayExamListActivity.this,UserHomeActivity.class);
+            homepage.putExtra("userid",regid);
+            startActivity(homepage);
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(disexactionBarDrawerToggle.onOptionsItemSelected(item)){
             return  true;
