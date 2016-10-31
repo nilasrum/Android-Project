@@ -38,7 +38,7 @@ public class ExamDetails extends AppCompatActivity {
     EditText examname,examdate,starttime,duration,browse,exampass;
     Button setexambutton;
     String ename,edate,estarttime,eduration,ebrowse,epass,qpath;
-    ProgressDialog progressDialog;
+    public ProgressDialog progressDialog;
 
     private DatePicker datePicker;
     private Calendar calendar;
@@ -119,7 +119,7 @@ public class ExamDetails extends AppCompatActivity {
         if (!(state.equals(Environment.MEDIA_MOUNTED))) {
             Toast.makeText(this, "There is no sd card", Toast.LENGTH_LONG).show();
         }
-        new FileChooser(ExamDetails.this).setFileListener(new FileChooser.FileSelectedListener() {
+        new FileChooser(ExamDetails.this,getApplicationContext()).setFileListener(new FileChooser.FileSelectedListener() {
             @Override public void fileSelected(final File file) {
                 // do something with the file
                 browse.setText(file.getAbsolutePath());
@@ -146,7 +146,8 @@ public class ExamDetails extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(ExamDetails.this, R.style.MyTheme_dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Stting up...");
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Setting up...");
         progressDialog.show();
 
         SetUpExamBackgroundTask setUpExamBackgroundTask = new SetUpExamBackgroundTask(this,ExamDetails.this);

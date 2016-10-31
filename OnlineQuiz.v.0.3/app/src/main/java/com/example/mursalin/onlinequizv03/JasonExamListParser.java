@@ -23,6 +23,7 @@ public class JasonExamListParser extends AsyncTask<String, Void, String> {
     UserHomeActivity activity;
     Context context;
     String id;
+    int f;
 
     JasonExamListParser(Context context,UserHomeActivity activity) {
         this.context = context;
@@ -36,9 +37,13 @@ public class JasonExamListParser extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
+        f=0;
         String exam_url;
         String examname = params[0];
-        if(examname.isEmpty())exam_url = LoginActivity.serverip + "/all_exam_list.php";
+        if(examname.isEmpty()){
+            f=1;
+            exam_url = LoginActivity.serverip + "/all_exam_list.php";
+        }
         else exam_url = LoginActivity.serverip + "/exam_list.php";
         id = params[1];
 
@@ -84,6 +89,8 @@ public class JasonExamListParser extends AsyncTask<String, Void, String> {
         examlistpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         examlistpage.putExtra("jason",result);
         examlistpage.putExtra("id",id);
+        if(f==1)examlistpage.putExtra("flag",true);
+        else examlistpage.putExtra("flag",false);
         context.startActivity(examlistpage);
 
     }

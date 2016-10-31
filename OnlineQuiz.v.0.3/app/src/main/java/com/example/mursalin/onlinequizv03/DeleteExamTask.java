@@ -23,11 +23,13 @@ public class DeleteExamTask extends AsyncTask<String, Void, String> {
     DisplayExamListActivity activity;
     Context contex;
     String delexamname, delexamdate;
+    boolean f;
 
 
-    DeleteExamTask(DisplayExamListActivity activity, Context contex) {
+    DeleteExamTask(DisplayExamListActivity activity, Context contex,boolean f) {
         this.activity = activity;
         this.contex = contex;
+        this.f=f;
     }
 
     @Override
@@ -77,7 +79,8 @@ public class DeleteExamTask extends AsyncTask<String, Void, String> {
         Toast.makeText(contex, res, Toast.LENGTH_LONG).show();
         if (res.startsWith("Exam")) {
             JasonExamListParser jasonExamListParser = new JasonExamListParser(contex);
-            jasonExamListParser.execute(delexamdate,"Admin");
+            if(f==true)jasonExamListParser.execute("","Admin");
+            else jasonExamListParser.execute(delexamdate,"Admin");
             Log.i("talat","delete task");
         }
     }

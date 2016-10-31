@@ -1,6 +1,7 @@
 package com.example.mursalin.onlinequizv03;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -75,7 +76,11 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
 
         } catch (Exception e) {
             flag =1;
-            e.printStackTrace();
+            Log.i("talat","plz get exception :P");
+            loginActivity.progressDialog.setCancelable(true);
+            Log.i("talat","1");
+            //Toast.makeText(ctx,"Connection Failed",Toast.LENGTH_SHORT).show();
+            loginActivity.progressDialog.dismiss();
         }
 
         return null;
@@ -84,7 +89,14 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String res) {
 
-        if(flag==1)return;
+        if(flag==1)
+        {
+            AlertDialog alertDialog;
+            alertDialog = new AlertDialog.Builder(loginActivity,R.style.AlertDialogCustom).create();
+            alertDialog.setMessage("Connection Failed");
+            alertDialog.show();
+            return;
+        }
         if(res.equals("admin")){
 
             Log.i("talat",res);

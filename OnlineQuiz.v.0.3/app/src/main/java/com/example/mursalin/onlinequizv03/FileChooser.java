@@ -3,9 +3,14 @@ package com.example.mursalin.onlinequizv03;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.os.Environment;
+import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.WindowManager.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +27,7 @@ public class FileChooser {
     private ListView list;
     private Dialog dialog;
     private File currentPath;
+    Context context;
 
     // filter on file extension
     private String extension = null;
@@ -40,7 +46,8 @@ public class FileChooser {
     }
     private FileSelectedListener fileListener;
 
-    public FileChooser(Activity activity) {
+    public FileChooser(Activity activity,Context context) {
+        this.context = context;
         this.activity = activity;
         dialog = new Dialog(activity);
         list = new ListView(activity);
@@ -58,8 +65,13 @@ public class FileChooser {
                 }
             }
         });
+        WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display = wm.getDefaultDisplay();
+        int width = display.getWidth();
+        int height = display.getHeight();
         dialog.setContentView(list);
-        dialog.getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
+        dialog.getWindow().setLayout((width*6)/7,(height*6)/7);
+        //Log.i("talat",String.valueOf((LayoutParams.FILL_PARENT*3)/4 )+String.valueOf( (LayoutParams.FILL_PARENT*3)/4));
         refresh(Environment.getExternalStorageDirectory());
     }
 

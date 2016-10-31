@@ -35,6 +35,7 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
     Context context;
     StoredExamInfo storedExamInfo[];
     String regid;
+    boolean f;
 
     String examname, examdate, starttime, duration, password;
     String popdate,popexam;
@@ -42,10 +43,12 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        f=false;
         setContentView(R.layout.activity_display_exam_list);
         storedExamInfo = new StoredExamInfo[100];
         jason_str = getIntent().getExtras().getString("jason");
         regid = getIntent().getExtras().getString("id");
+        f = getIntent().getExtras().getBoolean("flag");
         listAdapter = new ListAdapter(this, R.layout.exam_layout);
         listView = (ListView) findViewById(R.id.listview);
         listView.setAdapter(listAdapter);
@@ -65,7 +68,7 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
 
                 storedExamInfo[count] = new StoredExamInfo(examname, examdate, starttime, duration, password);
 
-                Exams exams = new Exams(examname, starttime);
+                Exams exams = new Exams(examname, starttime,examdate);
                 listAdapter.add(exams);
                 count++;
             }
@@ -143,7 +146,6 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
     public void onBackPressed() {
         if(regid.equals("Admin")){
             Intent homepage = new Intent(DisplayExamListActivity.this,AdminHomeActivity.class);
-
             startActivity(homepage);
         }else{
             Intent homepage = new Intent(DisplayExamListActivity.this,UserHomeActivity.class);
@@ -179,7 +181,7 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
 
         switch (item.getItemId()){
             case R.id.popdelete :
-                DeleteExamTask deleteExamTask = new DeleteExamTask(DisplayExamListActivity.this,getApplicationContext());
+                DeleteExamTask deleteExamTask = new DeleteExamTask(DisplayExamListActivity.this,getApplicationContext(),f);
                 deleteExamTask.execute(popexam,popdate);
                 Log.i("talat","after deleting");
                 return true;

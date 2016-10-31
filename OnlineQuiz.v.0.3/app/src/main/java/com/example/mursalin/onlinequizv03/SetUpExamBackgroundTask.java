@@ -4,6 +4,7 @@ package com.example.mursalin.onlinequizv03;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Environment;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
     ExamDetails activity;
     Context contex;
     String examname,starttime,duration,examdate,pass,path;
+    int f;
 
 
     SetUpExamBackgroundTask(ExamDetails activity,Context contex){
@@ -41,6 +43,7 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
         duration = params[3];
         pass = params[4];
         path = params[5];
+        f=0;
         String exam_url = LoginActivity.serverip+"/examdetails.php";
 
         //in exam_info
@@ -72,6 +75,7 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
             inputStream.close();
             httpURLConnection.disconnect();
         } catch (IOException e) {
+            f=1;
             e.printStackTrace();
         }
 
@@ -130,6 +134,7 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
                         httpURLConnection.disconnect();
                         Log.i("talat","thn is it ok  "+response);
                     } catch (IOException e) {
+                        f=1;
                         e.printStackTrace();
                         Log.i("talat","here"+e.toString());
                     }
@@ -139,6 +144,7 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
         }
         catch (Exception e) {
             //need to add proper error handling here
+            f=1;
         }
 
 
@@ -147,6 +153,13 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
 
     @Override
     protected void onPostExecute(String s) {
+        if(f==1){
+            AlertDialog alertDialog;
+            alertDialog = new AlertDialog.Builder(activity,R.style.AlertDialogCustom).create();
+            alertDialog.setMessage("Connection Failed");
+            alertDialog.show();
+            return;
+        }
         activity.progressDialog.dismiss();
         Toast.makeText(contex,"Exam Setup Completed",Toast.LENGTH_LONG).show();
         JasonExamListParser jasonExamListParser = new JasonExamListParser(contex);

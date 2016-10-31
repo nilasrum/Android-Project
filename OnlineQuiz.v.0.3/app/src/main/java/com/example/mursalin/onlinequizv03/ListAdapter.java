@@ -48,7 +48,8 @@ public class ListAdapter extends ArrayAdapter {
         }
         Exams exams = (Exams) this.getItem(position);
         examHolder.text_name.setText(exams.getExamname());
-        examHolder.text_date.setText(exams.getExamTime());
+        //examHolder.text_date.setText(exams.getExamTime());
+        examHolder.text_date.setText(processDate(exams.getDate(),exams.getExamTime()));
         return row;
     }
 
@@ -60,5 +61,10 @@ public class ListAdapter extends ArrayAdapter {
     static class ExamHolder{
 
         TextView text_name,text_date;
+    }
+    String processDate(String d,String t){
+        String ret="";
+        ret = d.substring(0,d.lastIndexOf('/')) + " ( "+t+" )";
+        return  ret;
     }
 }
