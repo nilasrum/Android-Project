@@ -67,6 +67,18 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Admin"
+            android:id="@+id/changeAdmin"
+            android:layout_below="@+id/setexambutton"
+            android:layout_marginTop="50dp"
+            android:layout_alignRight="@+id/setexambutton"
+            android:layout_alignEnd="@+id/setexambutton"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
     </RelativeLayout>
     <android.support.design.widget.NavigationView
         android:layout_width="wrap_content"

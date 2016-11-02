@@ -1,22 +1,17 @@
 package com.example.mursalin.onlinequizv03;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,16 +22,16 @@ public class AdminHomeActivity extends AppCompatActivity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mActionBarDrawerToggle;
     private NavigationView navigationView;
-    Button setexambutton,searchexambutton;
+    Button setexambutton,searchexambutton,changeAdmin;
     TextView searchdate;
     private DatePicker datePicker;
     private Calendar calendar;
     private int year, month, day;
+    private String email,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_admin_home);
         searchdate = (TextView) findViewById(R.id.searchdate);
         setexambutton = (Button) findViewById(R.id.setexambutton);
@@ -53,7 +48,16 @@ public class AdminHomeActivity extends AppCompatActivity {
                 SearchExamButtonClicked();
             }
         });
-
+        Bundle info = getIntent().getExtras();
+        email = info.getString("email");
+        pass = info.getString("pass");
+        changeAdmin = (Button)findViewById(R.id.changeAdmin);
+        changeAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AdminChangeButtonClicked();
+            }
+        });
         NavigationView navigationView = (NavigationView) findViewById(R.id.admin_home_navigationView_id);
         View header = navigationView.getHeaderView(0);
         TextView text = (TextView) header.findViewById(R.id.nav_head_admin);
@@ -113,14 +117,25 @@ public class AdminHomeActivity extends AppCompatActivity {
 
     }
 
+    void AdminChangeButtonClicked(){
+        Intent adminchange = new Intent(AdminHomeActivity.this,ChangeAdminActivity.class);
+        adminchange.putExtra("email",email);
+        adminchange.putExtra("pass",pass);
+        startActivity(adminchange);
+    }
+
     void SetExamButtonClicked(){
         Intent exampage = new Intent(AdminHomeActivity.this,ExamDetails.class);
+        exampage.putExtra("email",email);
+        exampage.putExtra("pass",pass);
         startActivity(exampage);
     }
 
     void SearchExamButtonClicked(){
         String date = searchdate.getText().toString();
         JasonExamListParser jasonExamListParser = new JasonExamListParser(AdminHomeActivity.this);
+        jasonExamListParser.email=email;
+        jasonExamListParser.pass = pass;
         jasonExamListParser.execute(date,"Admin");
     }
 

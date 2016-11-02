@@ -61,15 +61,19 @@ public class QuestionPageActivity extends AppCompatActivity {
 
         option1 = (CheckBox) findViewById(R.id.option1);
         option1.setText(opt1[cur]);
+        if(opt1[cur].equals("@"))option1.setVisibility(View.GONE);
 
         option2 = (CheckBox) findViewById(R.id.option2);
         option2.setText(opt2[cur]);
+        if(opt2[cur].equals("@"))option2.setVisibility(View.GONE);
 
         option3 = (CheckBox) findViewById(R.id.option3);
         option3.setText(opt3[cur]);
+        if(opt3[cur].equals("@"))option3.setVisibility(View.GONE);
 
         option4 = (CheckBox) findViewById(R.id.option4);
         option4.setText(opt4[cur]);
+        if(opt4[cur].equals("@"))option4.setVisibility(View.GONE);
 
         prevbutton = (Button) findViewById(R.id.prevbutton);
         prevbutton.setOnClickListener(new View.OnClickListener() {

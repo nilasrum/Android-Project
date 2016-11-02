@@ -34,12 +34,15 @@ public class DisplayResListActivity extends AppCompatActivity  {
     ListView listView;
     Context context;
 
-    String reg,ans,id;
+    String reg,ans,id,email,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_res_list);
+        Bundle info = getIntent().getExtras();
+        email = info.getString("email");
+        pass = info.getString("pass");
         jason_str = getIntent().getExtras().getString("jason");
         id = getIntent().getExtras().getString("id");
         reslistAdapter = new ResListAdapter(this, R.layout.res_layout);
@@ -77,6 +80,8 @@ public class DisplayResListActivity extends AppCompatActivity  {
                     case R.id.navigation_home_admin :
                         if(id.equals("Admin")){
                             Intent homeAd = new Intent(DisplayResListActivity.this,AdminHomeActivity.class);
+                            homeAd.putExtra("email",email);
+                            homeAd.putExtra("pass",pass);
                             startActivity(homeAd);
                         }else {
                             Intent homeUs = new Intent(DisplayResListActivity.this,UserHomeActivity.class);

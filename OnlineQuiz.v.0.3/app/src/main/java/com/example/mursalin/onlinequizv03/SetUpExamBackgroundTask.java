@@ -27,12 +27,15 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
     ExamDetails activity;
     Context contex;
     String examname,starttime,duration,examdate,pass,path;
+    String email,pas;
     int f;
 
 
-    SetUpExamBackgroundTask(ExamDetails activity,Context contex){
+    SetUpExamBackgroundTask(ExamDetails activity,Context contex,String email,String pass){
         this.activity = activity;
         this.contex = contex;
+        this.email = email;
+        this.pas = pass;
     }
 
     @Override
@@ -132,11 +135,11 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
                         bufferedReader.close();
                         inputStream.close();
                         httpURLConnection.disconnect();
-                        Log.i("talat","thn is it ok  "+response);
+
                     } catch (IOException e) {
                         f=1;
                         e.printStackTrace();
-                        Log.i("talat","here"+e.toString());
+
                     }
                 }
             }
@@ -163,6 +166,8 @@ public class SetUpExamBackgroundTask extends AsyncTask<String,Void,String>{
         activity.progressDialog.dismiss();
         Toast.makeText(contex,"Exam Setup Completed",Toast.LENGTH_LONG).show();
         JasonExamListParser jasonExamListParser = new JasonExamListParser(contex);
+        jasonExamListParser.email = email;
+        jasonExamListParser.pass = pas;
         jasonExamListParser.execute(examdate,"Admin");
 
     }

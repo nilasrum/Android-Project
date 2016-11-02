@@ -22,7 +22,7 @@ public class JasonExamListParser extends AsyncTask<String, Void, String> {
 
     UserHomeActivity activity;
     Context context;
-    String id;
+    String id,email,pass;
     int f;
 
     JasonExamListParser(Context context,UserHomeActivity activity) {
@@ -89,6 +89,8 @@ public class JasonExamListParser extends AsyncTask<String, Void, String> {
         examlistpage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         examlistpage.putExtra("jason",result);
         examlistpage.putExtra("id",id);
+        examlistpage.putExtra("email",email);
+        examlistpage.putExtra("pass",pass);
         if(f==1)examlistpage.putExtra("flag",true);
         else examlistpage.putExtra("flag",false);
         context.startActivity(examlistpage);

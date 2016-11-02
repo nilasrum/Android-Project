@@ -3,8 +3,8 @@
     package="com.example.mursalin.onlinequizv03">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -26,7 +26,10 @@
         <activity android:name=".DisplayExamListActivity" />
         <activity android:name=".QuestionPageActivity" />
         <activity android:name=".TempQuestionActivity" />
-        <activity android:name=".DisplayResListActivity"></activity>
+        <activity android:name=".DisplayResListActivity" />
+        <activity
+            android:name=".ChangeAdminActivity"
+            android:label="@string/title_activity_change_admin"></activity>
     </application>
 
 </manifest>

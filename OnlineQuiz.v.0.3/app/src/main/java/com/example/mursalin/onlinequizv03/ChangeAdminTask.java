@@ -20,28 +20,27 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class CheckForAdmin extends AsyncTask<String, Void, String> {
+public class ChangeAdminTask extends AsyncTask<String, Void, String> {
 
-    Context ctx;
-    String email, pass;
-    LoginActivity loginActivity;
+    Context context;
+    String oemail, opass,nemail,npass;
+    ProgressDialog progressDialog;
     int flag=0;
 
-    CheckForAdmin(Context ctx, LoginActivity activity) {
-        this.ctx = ctx;
-        this.loginActivity = activity;
+    ChangeAdminTask(Context ctx,ProgressDialog progressDialog) {
+        this.context = ctx;
+        this.progressDialog = progressDialog;
     }
-
 
     @Override
     protected String doInBackground(String... params) {
 
-        String login_url = loginActivity.serverip + "/admin_check.php";
+        String login_url = LoginActivity.serverip + "/admin_change.php";
 
-        email = params[0];
-        pass = params[1];
-
-        Log.i("talat","is it sunday?");
+        oemail = params[0];
+        opass = params[1];
+        nemail = params[2];
+        npass = params[3];
 
         try {
             URL url = new URL(login_url);
@@ -51,14 +50,14 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
             httpURLConnection.setDoInput(true);
             OutputStream os = httpURLConnection.getOutputStream();
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
-            String data = URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8") + "&" +
-                    URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(pass, "UTF-8");
+            String data = URLEncoder.encode("oemail", "UTF-8") + "=" + URLEncoder.encode(oemail, "UTF-8") + "&" +
+                    URLEncoder.encode("opass", "UTF-8") + "=" + URLEncoder.encode(opass, "UTF-8") + "&" +
+                    URLEncoder.encode("nemail", "UTF-8") + "=" + URLEncoder.encode(nemail, "UTF-8") + "&" +
+                    URLEncoder.encode("npass", "UTF-8") + "=" + URLEncoder.encode(npass, "UTF-8");
             bw.write(data);
             bw.flush();
             bw.close();
             os.close();
-
-            Log.i("talat","is it monday?");
 
             InputStream inputStream = httpURLConnection.getInputStream();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
@@ -71,16 +70,11 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
             bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
-            Log.i("talat","thn is it ok  "+response);
             return response;
 
         } catch (Exception e) {
             flag =1;
-            Log.i("talat","plz get exception :P");
-            loginActivity.progressDialog.setCancelable(true);
-            Log.i("talat","1");
-            //Toast.makeText(ctx,"Connection Failed",Toast.LENGTH_SHORT).show();
-            loginActivity.progressDialog.dismiss();
+
         }
 
         return null;
@@ -89,26 +83,22 @@ public class CheckForAdmin extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String res) {
 
+        progressDialog.setCancelable(true);
+        progressDialog.dismiss();
         if(flag==1)
         {
             AlertDialog alertDialog;
-            alertDialog = new AlertDialog.Builder(loginActivity,R.style.AlertDialogCustom).create();
+            alertDialog = new AlertDialog.Builder(context,R.style.AlertDialogCustom).create();
             alertDialog.setMessage("Connection Failed");
             alertDialog.show();
             return;
         }
-        if(res.equals("admin")){
-            Intent adminhome = new Intent(ctx,AdminHomeActivity.class);
-            adminhome.putExtra("email",email);
-            adminhome.putExtra("pass",pass);
-            adminhome.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            ctx.startActivity(adminhome);
-        }else if(res.equals("user")) {
-            BackgroundTask backgroundTask;
-            backgroundTask = new BackgroundTask(ctx,loginActivity);
-            backgroundTask.execute("login", email, pass);
-        }
-
+        Toast.makeText(context, res, Toast.LENGTH_SHORT).show();
+        Intent apage = new Intent(context, AdminHomeActivity.class);
+        apage.putExtra("email",nemail);
+        apage.putExtra("pass",npass);
+        apage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(apage);
     }
 
 

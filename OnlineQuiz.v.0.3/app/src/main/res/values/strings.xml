@@ -29,4 +29,5 @@
     <string name="exam_password">Exam Password</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="title_activity_change_admin">ChangeAdmin</string>
 </resources>

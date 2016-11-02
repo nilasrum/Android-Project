@@ -44,6 +44,7 @@ public class ExamDetails extends AppCompatActivity {
     private Calendar calendar;
     private int year, month, day;
     private File quesfile;
+    private String email,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,9 @@ public class ExamDetails extends AppCompatActivity {
             }
         });
 
+        Bundle info = getIntent().getExtras();
+        email = info.getString("email");
+        pass = info.getString("pass");
         calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
@@ -91,6 +95,8 @@ public class ExamDetails extends AppCompatActivity {
                     case R.id.navigation_home_admin :
                         Toast.makeText(getApplicationContext(),"home",Toast.LENGTH_SHORT).show();
                         Intent home = new Intent(ExamDetails.this,AdminHomeActivity.class);
+                        home.putExtra("email",email);
+                        home.putExtra("pass",pass);
                         startActivity(home);
                         return true;
                     case R.id.navigation_logout_admin :
@@ -150,7 +156,7 @@ public class ExamDetails extends AppCompatActivity {
         progressDialog.setMessage("Setting up...");
         progressDialog.show();
 
-        SetUpExamBackgroundTask setUpExamBackgroundTask = new SetUpExamBackgroundTask(this,ExamDetails.this);
+        SetUpExamBackgroundTask setUpExamBackgroundTask = new SetUpExamBackgroundTask(this,ExamDetails.this,email,pass);
         setUpExamBackgroundTask.execute(ename,edate,estarttime,eduration,epass,qpath);
 
     }

@@ -39,12 +39,16 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
 
     String examname, examdate, starttime, duration, password;
     String popdate,popexam;
+    String email,pass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         f=false;
         setContentView(R.layout.activity_display_exam_list);
+        Bundle info = getIntent().getExtras();
+        email = info.getString("email");
+        pass = info.getString("pass");
         storedExamInfo = new StoredExamInfo[100];
         jason_str = getIntent().getExtras().getString("jason");
         regid = getIntent().getExtras().getString("id");
@@ -85,9 +89,6 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Log.i("talat",String.valueOf( storedExamInfo[position].exname));
-
-
                 if(regid.equals("Admin")){
 
                     ShowPopUpMenu(view,storedExamInfo[position].exname,storedExamInfo[position].exdate);
@@ -121,6 +122,8 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
                         Toast.makeText(getApplicationContext(),"home",Toast.LENGTH_SHORT).show();
                         if(regid.equals("Admin")){
                             Intent home = new Intent(DisplayExamListActivity.this,AdminHomeActivity.class);
+                            home.putExtra("email",email);
+                            home.putExtra("pass",pass);
                             startActivity(home);
                         }else{
                             Intent uhome = new Intent(DisplayExamListActivity.this,UserHomeActivity.class);
@@ -146,6 +149,8 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
     public void onBackPressed() {
         if(regid.equals("Admin")){
             Intent homepage = new Intent(DisplayExamListActivity.this,AdminHomeActivity.class);
+            homepage.putExtra("email",email);
+            homepage.putExtra("pass",pass);
             startActivity(homepage);
         }else{
             Intent homepage = new Intent(DisplayExamListActivity.this,UserHomeActivity.class);
@@ -181,12 +186,18 @@ public class DisplayExamListActivity extends AppCompatActivity implements PopupM
 
         switch (item.getItemId()){
             case R.id.popdelete :
-                DeleteExamTask deleteExamTask = new DeleteExamTask(DisplayExamListActivity.this,getApplicationContext(),f);
-                deleteExamTask.execute(popexam,popdate);
-                Log.i("talat","after deleting");
+                DeleteDialog deleteDialog = new DeleteDialog();
+                deleteDialog.activity = DisplayExamListActivity.this;
+                deleteDialog.context = getApplicationContext();
+                deleteDialog.f = f;
+                deleteDialog.exam = popexam;
+                deleteDialog.date  =popdate;
+                deleteDialog.show(getSupportFragmentManager(), "delete_exam");
                 return true;
             case R.id.viewres :
                 JasonResultParser jasonResultParser = new JasonResultParser(getApplicationContext());
+                jasonResultParser.email = email;
+                jasonResultParser.pass = pass;
                 jasonResultParser.execute(popexam,"Admin");
                 return true;
             default:return false;
