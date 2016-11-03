@@ -56,6 +56,7 @@ public class FileChooser {
                 String fileChosen = (String) list.getItemAtPosition(which);
                 File chosenFile = getChosenFile(fileChosen);
                 if (chosenFile.isDirectory()) {
+                    if(chosenFile.getAbsolutePath().equals("/"))return;
                     refresh(chosenFile);
                 } else {
                     if (fileListener != null) {
@@ -71,7 +72,6 @@ public class FileChooser {
         int height = display.getHeight();
         dialog.setContentView(list);
         dialog.getWindow().setLayout((width*6)/7,(height*6)/7);
-        //Log.i("talat",String.valueOf((LayoutParams.FILL_PARENT*3)/4 )+String.valueOf( (LayoutParams.FILL_PARENT*3)/4));
         refresh(Environment.getExternalStorageDirectory());
     }
 
@@ -85,52 +85,56 @@ public class FileChooser {
      */
     private void refresh(File path) {
         this.currentPath = path;
-        if (path.exists()) {
-            File[] dirs = path.listFiles(new FileFilter() {
-                @Override public boolean accept(File file) {
-                    return (file.isDirectory() && file.canRead());
-                }
-            });
-            File[] files = path.listFiles(new FileFilter() {
-                @Override public boolean accept(File file) {
-                    if (!file.isDirectory()) {
-                        if (!file.canRead()) {
-                            return false;
-                        } else if (extension == null) {
-                            return true;
-                        } else {
-                            return file.getName().toLowerCase().endsWith(extension);
-                        }
-                    } else {
-                        return false;
+        try {
+            if (path.exists()) {
+                File[] dirs = path.listFiles(new FileFilter() {
+                    @Override public boolean accept(File file) {
+                        return (file.isDirectory() && file.canRead());
                     }
+                });
+                File[] files = path.listFiles(new FileFilter() {
+                    @Override public boolean accept(File file) {
+                        if (!file.isDirectory()) {
+                            if (!file.canRead()) {
+                                return false;
+                            } else if (extension == null) {
+                                return true;
+                            } else {
+                                return file.getName().toLowerCase().endsWith(extension);
+                            }
+                        } else {
+                            return false;
+                        }
+                    }
+                });
+                // convert to an array
+                int i = 0;
+                String[] fileList;
+                if (path.getParentFile() == null) {
+                    fileList = new String[dirs.length + files.length];
+                } else {
+                    fileList = new String[dirs.length + files.length + 1];
+                    fileList[i++] = PARENT_DIR;
                 }
-            });
+                Arrays.sort(dirs);
+                Arrays.sort(files);
+                for (File dir : dirs) { fileList[i++] = dir.getName(); }
+                for (File file : files ) { fileList[i++] = file.getName(); }
 
-            // convert to an array
-            int i = 0;
-            String[] fileList;
-            if (path.getParentFile() == null) {
-                fileList = new String[dirs.length + files.length];
-            } else {
-                fileList = new String[dirs.length + files.length + 1];
-                fileList[i++] = PARENT_DIR;
+                // refresh the user interface
+                dialog.setTitle(currentPath.getPath());
+                list.setAdapter(new ArrayAdapter(activity,
+                        android.R.layout.simple_list_item_1, fileList) {
+                    @Override public View getView(int pos, View view, ViewGroup parent) {
+                        view = super.getView(pos, view, parent);
+                        ((TextView) view).setSingleLine(true);
+                        return view;
+                    }
+                });
             }
-            Arrays.sort(dirs);
-            Arrays.sort(files);
-            for (File dir : dirs) { fileList[i++] = dir.getName(); }
-            for (File file : files ) { fileList[i++] = file.getName(); }
 
-            // refresh the user interface
-            dialog.setTitle(currentPath.getPath());
-            list.setAdapter(new ArrayAdapter(activity,
-                    android.R.layout.simple_list_item_1, fileList) {
-                @Override public View getView(int pos, View view, ViewGroup parent) {
-                    view = super.getView(pos, view, parent);
-                    ((TextView) view).setSingleLine(true);
-                    return view;
-                }
-            });
+        }catch (Exception e){
+
         }
     }
 

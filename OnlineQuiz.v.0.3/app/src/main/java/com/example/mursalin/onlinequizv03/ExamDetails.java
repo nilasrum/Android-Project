@@ -1,14 +1,19 @@
 package com.example.mursalin.onlinequizv03;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -121,16 +126,52 @@ public class ExamDetails extends AppCompatActivity {
     }
 
     public void BrowseQues(){
-        String state = Environment.getExternalStorageState();
-        if (!(state.equals(Environment.MEDIA_MOUNTED))) {
-            Toast.makeText(this, "There is no sd card", Toast.LENGTH_LONG).show();
+
+        String release = Build.VERSION.RELEASE;
+        Log.i("talat","*"+release);
+        if(release.startsWith("6")){
+
+            if (ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.READ_CONTACTS)
+                    != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        100);
+            }
+
+        }else{
+
+            new FileChooser(ExamDetails.this,getApplicationContext()).setFileListener(new FileChooser.FileSelectedListener() {
+                @Override public void fileSelected(final File file) {
+                    browse.setText(file.getAbsolutePath());
+                    quesfile = file;
+                }}).showDialog();
+
         }
-        new FileChooser(ExamDetails.this,getApplicationContext()).setFileListener(new FileChooser.FileSelectedListener() {
-            @Override public void fileSelected(final File file) {
-                // do something with the file
-                browse.setText(file.getAbsolutePath());
-                quesfile = file;
-            }}).showDialog();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 100: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    new FileChooser(ExamDetails.this,getApplicationContext()).setFileListener(new FileChooser.FileSelectedListener() {
+                        @Override public void fileSelected(final File file) {
+                            browse.setText(file.getAbsolutePath());
+                            quesfile = file;
+                        }}).showDialog();
+
+                } else {
+
+                }
+                return;
+            }
+
+        }
+
     }
 
     void SetUpExamButtonClicked(){
@@ -141,7 +182,6 @@ public class ExamDetails extends AppCompatActivity {
         epass = exampass.getText().toString();
         qpath = browse.getText().toString();
         if(ename.isEmpty() || edate.isEmpty() || estarttime.isEmpty() || eduration.isEmpty() || epass.isEmpty() || qpath.isEmpty()){
-            Log.i("talat","exam details empty");
             Toast.makeText(getApplicationContext(),"please fill up all feild",Toast.LENGTH_SHORT).show();
             return;
         }
@@ -173,13 +213,10 @@ public class ExamDetails extends AppCompatActivity {
 
     @Override
     protected Dialog onCreateDialog(int id) {
-        // TODO Auto-generated method stub
-        Log.i("talat","at least here");
         if (id == 999) {
             return new DatePickerDialog(this, myDateListener, year, month, day);
         }
         if(id==998){
-            Log.i("talat","hi baby");
             return new TimePickerDialog(this,
                     timePickerListener, hour, minute,false);
         }
@@ -189,10 +226,6 @@ public class ExamDetails extends AppCompatActivity {
     private DatePickerDialog.OnDateSetListener myDateListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
-            // TODO Auto-generated method stub
-            // arg1 = year
-            // arg2 = month
-            // arg3 = day
             showDate(arg1, arg2+1, arg3);
         }
     };
@@ -215,10 +248,7 @@ public class ExamDetails extends AppCompatActivity {
                 }
             };
     private static String pad(int c) {
-        //if (c >= 10)
             return String.valueOf(c);
-       // else
-           // return "0" + String.valueOf(c);
     }
 
 }
