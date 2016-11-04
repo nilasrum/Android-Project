@@ -32,7 +32,7 @@ public class SignupActivity extends AppCompatActivity {
     public TextView link;
     public Button signupbutton;
     public EditText signupemail,signuppassword,regnum;
-    ProgressDialog progressDialog;
+    public ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,7 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(SignupActivity.this, R.style.MyTheme_dialog);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Authenticating...");
+        progressDialog.setCancelable(false);
         progressDialog.show();
 
         if(!isValid()){

@@ -17,7 +17,6 @@ public class LoginActivity extends AppCompatActivity {
     public ProgressDialog progressDialog;
     private String email, password;
     //public static String serverip = "http://10.0.2.2/android";
-    //public static String serverip = "http://192.168.43.25/android";
     public static String serverip = "http://192.168.137.1/android";
 
 

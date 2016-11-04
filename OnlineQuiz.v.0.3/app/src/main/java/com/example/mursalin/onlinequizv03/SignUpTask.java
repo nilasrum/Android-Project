@@ -1,5 +1,6 @@
 package com.example.mursalin.onlinequizv03;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
 
     Context ctx;
     SignupActivity signupActivity;
+    int flag;
 
 
     SignUpTask(Context ctx, SignupActivity activity) {
@@ -34,6 +36,7 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... params) {
 
+        flag=0;
         String login_url = LoginActivity.serverip+"/emailcheck.php";
         String email = params[0];
 
@@ -66,6 +69,7 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
 
         } catch (IOException e) {
 
+            flag=1;
             e.printStackTrace();
         }
 
@@ -75,6 +79,15 @@ public class SignUpTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String res) {
         //Log.i("talat",res+" "+"error");
+        if(flag==1){
+            signupActivity.progressDialog.setCancelable(true);
+            signupActivity.progressDialog.dismiss();
+            AlertDialog alertDialog;
+            alertDialog = new AlertDialog.Builder(ctx,R.style.AlertDialogCustom).create();
+            alertDialog.setMessage("Connection Failed");
+            alertDialog.show();
+            return;
+        }
         if (res.startsWith("match")) {
 
             signupActivity.progressDialog.dismiss();
